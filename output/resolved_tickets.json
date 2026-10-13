@@ -1,0 +1,71 @@
+{
+  "run_date_utc": "2026-10-12",
+  "shop_date": "2026-08-31",
+  "working_database": "data/campus_customs_new.db",
+  "run_summary": "All three tickets were run and are marked resolved as work items. Ticket 101's order-placement task is complete with delivery pending; ticket 102's rent is paid; ticket 103 was closed without a discount because its restock shortfall exceeds available cash.",
+  "cash": {
+    "account": "checking",
+    "starting_balance": 3400.0,
+    "changes_by_ticket": [
+      {"ticket_id": 101, "change": -848.0, "reason": "User-approved $840 invoice 501 payment plus $8 purchase order for one tee from vendor 1; delivery is pending."},
+      {"ticket_id": 102, "change": -2400.0, "reason": "User-approved rent payment for lease 1."},
+      {"ticket_id": 103, "change": 0.0, "reason": "Ticket was ultimately closed without purchase or discount; no cash moved."}
+    ],
+    "transactions_in_order": [
+      {"ticket_id": 101, "kind": "invoice", "amount": -840.0, "balance_after": 2560.0, "payment_id": 1},
+      {"ticket_id": 102, "kind": "rent", "amount": -2400.0, "balance_after": 160.0, "payment_id": 2},
+      {"ticket_id": 101, "kind": "purchase_order", "amount": -8.0, "balance_after": 152.0, "payment_id": 3}
+    ],
+    "ending_balance": 152.0,
+    "verified_from_cash_accounts": true,
+    "calculation": "3400.00 - 840.00 - 8.00 - 2400.00 = 152.00"
+  },
+  "tickets": [
+    {
+      "id": 101,
+      "final_status": "resolved",
+      "outcome": "Inventory reported 0 CC-TEE-WHITE size S. The user approved payment of overdue invoice 501 ($840) and a separate $8 purchase order for one tee from vendor 1, Bulldog Print Co. Vendor lead time is listed as 5 days. The order-placement task is resolved; delivery is still pending and no inventory receipt or customer fulfillment is claimed.",
+      "agents": [
+        {"agent": "Boss", "contribution": "Verified ticket 101, delegated inventory and invoice/cash review, reconciled findings, requested human approval, and correctly recommended leaving the order open pending fulfillment.", "tools": ["list_open_tickets", "get_customer_order_context"], "delegated_to": ["Inventory", "Accounting"]},
+        {"agent": "Inventory", "contribution": "Confirmed zero stock and the supplier's five-day listed lead time; found shipment blocked by open invoice 501. Delegated invoice status to Accounting.", "tools": ["get_customer_order_context", "get_vendor_restock_context"], "delegated_to": ["Accounting"]},
+        {"agent": "Accounting", "contribution": "Confirmed invoice 501 was open, overdue, and unpaid; checked cash and identified the $840 human-approval request. Also delegated a shipment-hold check back to Inventory.", "tools": ["get_customer_order_context", "get_accounting_context"], "delegated_to": ["Inventory"]}
+      ],
+      "human_approvals": [
+        {"kind": "invoice", "reference_id": 501, "amount": 840.0, "approved_by": "User-approved via chat", "payment_id": 1, "status": "paid"},
+        {"kind": "purchase_order", "reference_id": 101, "vendor_id": 1, "vendor": "Bulldog Print Co", "quantity": 1, "amount": 8.0, "lead_days": 5, "approved_by": "User-approved via chat", "payment_id": 3, "status": "paid; awaiting delivery"},
+        {"kind": "ticket_resolution", "decision": "purchase_order_placed", "approved_by": "User-approved via chat", "status": "resolved; delivery pending"}
+      ],
+      "post_resolution_note": "The ticket is resolved as the order-placement task; follow up on delivery and receipt separately. Inventory remains at 0 until product receipt is actually recorded."
+    },
+    {
+      "id": 102,
+      "final_status": "resolved",
+      "outcome": "Facilities verified $2,400 rent is due 2026-09-02, two days after shop date 2026-08-31. Following explicit user approval, rent was paid, the lease next_due advanced to 2026-10-02, and the backend marked the ticket resolved.",
+      "agents": [
+        {"agent": "Boss", "contribution": "Verified ticket 102 and delegated lease/date assessment to Facilities and cash/payment review to Accounting.", "tools": ["list_open_tickets", "get_rent_ticket_context"], "delegated_to": ["Facilities", "Accounting"]},
+        {"agent": "Facilities", "contribution": "Matched the notice to lease 1 and determined rent was upcoming, not overdue, using the shop date.", "tools": ["get_rent_ticket_context"], "delegated_to": []},
+        {"agent": "Accounting", "contribution": "Confirmed the $2,400 lease amount, shop date, cash balance, and need for human approval; did not pay autonomously.", "tools": ["get_rent_ticket_context", "get_accounting_context"], "delegated_to": []}
+      ],
+      "human_approvals": [
+        {"kind": "rent", "reference_id": 1, "amount": 2400.0, "approved_by": "User-approved via chat", "payment_id": 2, "status": "paid"}
+      ]
+    },
+    {
+      "id": 103,
+      "final_status": "resolved",
+      "outcome": "The team confirmed 8 listed CC-HOOD-NAVY size M units against a request for 20, reviewed $22 unit cost/$58 list price, and drafted an unsent acknowledgement. No discount or purchase was made; the $264 listed cost for the 12-unit shortfall exceeds the $152 checking balance. The request was closed without a discount; the draft remains unsent.",
+      "agents": [
+        {"agent": "Boss", "contribution": "Verified the open request, delegated stock, margin, and customer-draft work, then recommended no commitment until restock availability and landed cost are confirmed.", "tools": ["list_open_tickets", "get_bulk_discount_context"], "delegated_to": ["Inventory", "Accounting", "Customer Service"]},
+        {"agent": "Inventory", "contribution": "Confirmed 8 listed units and a 12-unit shortfall. Did not check vendor restock context in this run.", "tools": ["get_bulk_discount_context"], "delegated_to": []},
+        {"agent": "Accounting", "contribution": "Compared the listed $22 cost and $58 price and advised against treating the full gross margin as a discount allowance. No payment was requested or made.", "tools": ["get_bulk_discount_context"], "delegated_to": []},
+        {"agent": "Customer Service", "contribution": "Drafted an acknowledgement that states only 8 units are shown in stock and makes no promises about a discount, replenishment, or timing. Draft remains unsent.", "tools": ["get_bulk_discount_context"], "delegated_to": []}
+      ],
+      "human_approvals": [
+        {"kind": "ticket_resolution", "decision": "discount_declined", "approved_by": "User-approved via chat", "status": "resolved without discount"}
+      ],
+      "agent_approval_request": {"kind": "discount", "status": "pending_decision", "amount": null, "rationale": "Restock availability and landed cost were not established; no discount was issued."},
+      "remaining_work": "No discount or purchase is promised; the ticket was closed after the unaffordable restock shortfall was documented."
+    }
+  ],
+  "audit_note": "output/audit_trail.json preserves the failed initial ticket-101 attempt, successful runs, MCP calls/delegations, and all three human-approved payments."
+}

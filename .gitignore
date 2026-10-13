@@ -1,0 +1,21 @@
+.env
+.env.*
+!.env.example
+
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+.venv-mcp/
+.python-runtime/
+.uv-cache/
+.node-runtime/
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo
+
+# Local course material and unrelated files in the shared homework folder.
+Class_4_2026.pdf
+US MBA Leadership Development Programs.xlsx
+~$*
+data (1).zip

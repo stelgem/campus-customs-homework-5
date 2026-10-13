@@ -1,0 +1,80 @@
+{
+  "mcp_transport_connected": true,
+  "transport": "stdio",
+  "server_command": ".venv/bin/python mcp_server/server.py",
+  "sdk_version": "mcp 1.30.0",
+  "listed_tools": [
+    "get_customer_order_context",
+    "get_rent_ticket_context",
+    "get_bulk_discount_context"
+  ],
+  "checks": [
+    {
+      "prompt": "Problem 4: 'Add the MCP server to vibe coder and test each tool' . Add your MCP server to this project so you can call the tools. Save the connection JSON text in .mcp.json at the project room (or homework you save MCP server lists). With you connected, test each of your three MCP tools. Save the evidence in output/mcp_smoke.json . For every tool include: 1. the prompt I asked you . 2. the tool name. 3. The tool output (must match values in data/campus_customs_new.db)",
+      "tool_name": "get_customer_order_context",
+      "arguments": {"ticket_id": 101},
+      "tool_output": {
+        "ticket_id": 101,
+        "type": "customer_order",
+        "status": "open",
+        "requester": "Tauhid Zaman",
+        "subject": "Bulldog tee",
+        "sku": "CC-TEE-WHITE",
+        "size": "S",
+        "requested_qty": 1,
+        "ticket_notes": "Needs a tee in size S.",
+        "stock_qty": 0,
+        "stock_location": "Aisle B",
+        "invoice_id": 501,
+        "invoice_amount": 840.0,
+        "invoice_due_date": "2026-08-28",
+        "invoice_status": "open",
+        "invoice_description": "Rush reprint CC-TEE-WHITE S",
+        "vendor_id": 1,
+        "vendor_name": "Bulldog Print Co",
+        "vendor_specialty": "apparel reprint",
+        "lead_days": 5
+      }
+    },
+    {
+      "prompt": "Problem 4: 'Add the MCP server to vibe coder and test each tool' . Add your MCP server to this project so you can call the tools. Save the connection JSON text in .mcp.json at the project room (or homework you save MCP server lists). With you connected, test each of your three MCP tools. Save the evidence in output/mcp_smoke.json . For every tool include: 1. the prompt I asked you . 2. the tool name. 3. The tool output (must match values in data/campus_customs_new.db)",
+      "tool_name": "get_rent_ticket_context",
+      "arguments": {"ticket_id": 102},
+      "tool_output": {
+        "ticket_id": 102,
+        "type": "rent_notice",
+        "status": "open",
+        "requester": "Elm City Properties",
+        "subject": "Rent due",
+        "lease_id": 1,
+        "ticket_notes": "Email: shop rent due in 2 days.",
+        "space_name": "Chapel Street shop",
+        "landlord": "Elm City Properties",
+        "monthly_rent": 2400.0,
+        "next_due": "2026-09-02",
+        "lease_notes": null,
+        "date_today": "2026-08-31"
+      }
+    },
+    {
+      "prompt": "Problem 4: 'Add the MCP server to vibe coder and test each tool' . Add your MCP server to this project so you can call the tools. Save the connection JSON text in .mcp.json at the project room (or homework you save MCP server lists). With you connected, test each of your three MCP tools. Save the evidence in output/mcp_smoke.json . For every tool include: 1. the prompt I asked you . 2. the tool name. 3. The tool output (must match values in data/campus_customs_new.db)",
+      "tool_name": "get_bulk_discount_context",
+      "arguments": {"ticket_id": 103},
+      "tool_output": {
+        "ticket_id": 103,
+        "type": "price_override",
+        "status": "open",
+        "requester": "Yale AI Club",
+        "subject": "Bulk hoodie discount",
+        "sku": "CC-HOOD-NAVY",
+        "size": "M",
+        "requested_qty": 20,
+        "ticket_notes": "Student org wants 20 hoodies, size M, asking for a bulk discount.",
+        "stock_qty": 8,
+        "stock_location": "Aisle A",
+        "unit_cost": 22.0,
+        "list_price": 58.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Customs — Post-run board views</title>
+  <style>
+    :root { color-scheme: light; --ink:#182334; --muted:#5a6879; --paper:#f1f3f5; --navy:#12365a; --gold:#f4c45f; --line:#d9e0e6; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    header { padding:28px clamp(18px,4vw,56px); background:var(--navy); color:white; }
+    header p { max-width:900px; margin:8px 0 0; color:#dce8f3; }
+    h1 { margin:0; font-size:clamp(25px,4vw,38px); }
+    main { width:min(1400px,96%); margin:24px auto 48px; }
+    .notice { margin:0 0 22px; padding:16px 18px; border:1px solid #e5c46c; border-radius:12px; background:#fff8e6; }
+    .views { display:grid; gap:24px; }
+    article { overflow:hidden; border:1px solid var(--line); border-radius:16px; background:white; box-shadow:0 12px 32px #16273a12; }
+    .view-head { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 18px; border-bottom:1px solid var(--line); }
+    h2 { margin:0; color:var(--navy); font-size:18px; }
+    .pill { border-radius:20px; padding:4px 11px; background:#eef1f4; font-size:12px; font-weight:750; text-transform:uppercase; letter-spacing:.05em; }
+    .resolved { background:#e2f2e8; color:#17623a; }
+    .open { background:#fff2d6; color:#805500; }
+    .board-shot { display:block; width:100%; height:auto; background:var(--paper); }
+    figcaption { padding:10px 18px; color:var(--muted); font-size:13px; }
+    footer { color:var(--muted); padding:16px 0; font-size:13px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Campus Customs / post-run board</h1>
+    <p>Static pixel screenshots of the React desk after the Problem 9 run. Each capture shows the ticket selected, agent activity, recorded approvals, and persisted database status.</p>
+  </header>
+  <main>
+    <div class="notice"><strong>Run status:</strong> all three ticket work items are resolved. Ticket 101 is resolved as a paid order placement (delivery pending; stock is not represented as received), ticket 102 is resolved after rent payment, and ticket 103 is resolved without a discount because its restock exceeds available cash. The screenshots are stored beside this HTML file, so it can be opened offline.</div>
+    <section class="views" aria-label="Ticket board views">
+      <article>
+        <div class="view-head"><h2>Ticket 101 · Bulldog tee</h2><span class="pill resolved">Resolved · order placed, delivery pending</span></div>
+        <figure><img class="board-shot" src="resolved_board_ticket_101.png" alt="React Campus Customs dashboard with ticket 101 selected, showing the resolved order placement, approved invoice, $152 balance, and the agent activity log."><figcaption>Captured React desk — ticket 101. Order placed; vendor delivery remains pending.</figcaption></figure>
+      </article>
+      <article>
+        <div class="view-head"><h2>Ticket 102 · Rent notice</h2><span class="pill resolved">Resolved · rent paid</span></div>
+        <figure><img class="board-shot" src="resolved_board_ticket_102.png" alt="React Campus Customs dashboard with ticket 102 selected, showing rent ticket resolved, its recorded payment and the agent activity log."><figcaption>Captured React desk — ticket 102. Rent paid; ticket resolved.</figcaption></figure>
+      </article>
+      <article>
+        <div class="view-head"><h2>Ticket 103 · Bulk hoodie discount</h2><span class="pill resolved">Resolved · no discount</span></div>
+        <figure><img class="board-shot" src="resolved_board_ticket_103.png" alt="React Campus Customs dashboard with ticket 103 selected, showing the discount request resolved without discount and the agent activity log."><figcaption>Captured React desk — ticket 103. Closed without discount due to the unaffordable restock shortfall.</figcaption></figure>
+      </article>
+    </section>
+    <footer>Source of truth: output/audit_trail.json and data/campus_customs_new.db. No customer message was sent; the ticket 103 reply is still a draft.</footer>
+  </main>
+</body>
+</html>
